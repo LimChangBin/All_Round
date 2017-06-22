@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>졸업작품</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src = "https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src = "https://d3js.org/d3.v4.min.js"></script>
+    <script src = "http://code.jquery.com/jquery-latest.js"></script>
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="http://mbostock.github.com/d3/d3.js?2.5.0"></script>
+
+
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link href="css/fontselect.css" rel="stylesheet" media="screen">
+    <link href="css/custom.css" rel="stylesheet" media="screen">
+    <link href="css/svg.css" rel="stylesheet" media="screen">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+  <body >
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="http://128.134.52.62:38000/"><img src="./img/hancom.png" style="width:120px; height:20px; transform: rotate(1deg);"></a>
+          <a class="navbar-brand" href="#"><img src="./img/allround.png" style="width:130px; height:20px;"></a>
+          <a class="navbar-brand" href="#"><strong>Editor</strong></a>
+        </div>
+
+        <ul class="nav navbar-nav pull-right">
+
+           <li>
+            <a id="login_button" onclick="login_btn();" href="#">
+              &nbsp;&nbsp;Login &nbsp;<span class="glyphicon glyphicon-user"></span>
+            </a>
+
+            <text id="user_id" style="background-color:transparent; color:white;"></text>
+
+              <a id="logout_button" href="/log_out" style="display:none;">
+                &nbsp;&nbsp;Logout &nbsp;<span class="glyphicon glyphicon-user"></span>
+              </a>
+
+          </li>
+
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <!-- <span class="caret"></span> -->&nbsp;&nbsp;Setting &nbsp;<span class="glyphicon glyphicon-cog"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li style="font-size:15px;">
+                <a href="#" data-toggle="modal" onclick="load_modal()">
+                  <span class="glyphicon glyphicon-floppy-open"></span>&nbsp;&nbsp;Load
+                </a>
+              </li>
+              <li style="font-size:15px;">
+                <a href="#" data-toggle="modal" onclick="save_modal()">
+                  <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;&nbsp;Save
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="toolbarMenu">
+      <center>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.RECT; drawSetting();" data-toggle="tooltip" title="Rectangle">
+            <i class="material-icons">crop_landscape</i>
+          </button>
+          <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.TRIANGLE; drawSetting();" data-toggle="tooltip" title="Triangle">
+            <i class="material-icons">change_history</i>
+          </button>
+          <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.CIRCLE; drawSetting();" data-toggle="tooltip" title="Circle">
+            <i class="material-icons">panorama_fish_eye</i>
+          </button>
+          <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Shape collection">
+                      <i class="material-icons">inbox</i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <div class="groupList">
+                          <div class="btn-group" style="margin-left:10px;">
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.HART; drawSetting();" data-toggle="tooltip" title="Heart">
+                              <img src="./img/shapegroup/heart.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Star">
+                              <img src="./img/shapegroup/star.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.DONUT; drawSetting();" data-toggle="tooltip" title="Donut">
+                              <img src="./img/shapegroup/donut.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.CLOUD; drawSetting()" data-toggle="tooltip" title="Cloud">
+                              <img src="./img/shapegroup/cloud.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.SMILEY; drawSetting()" data-toggle="tooltip" title="Smile">
+                              <img src="./img/shapegroup/smiley.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.DIAMOND; drawSetting();" data-toggle="tooltip" title="Diamond">
+                              <img src="./img/shapegroup/diamond.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.ARROWA; drawSetting();" data-toggle="tooltip" title="Arrow A">
+                              <img src="./img/shapegroup/arrowA.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.ARROWB; drawSetting();" data-toggle="tooltip" title="Arrow B">
+                              <img src="./img/shapegroup/arrowB.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.ARROWC; drawSetting();" data-toggle="tooltip" title="Arrow C">
+                              <img src="./img/shapegroup/arrowC.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.ARROWD; drawSetting();" data-toggle="tooltip" title="Arrow D">
+                              <img src="./img/shapegroup/arrowD.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.DIALOGA; drawSetting();" data-toggle="tooltip" title="Dialog A">
+                              <img src="./img/shapegroup/dialogA.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.DIALOGB; drawSetting();" data-toggle="tooltip" title="Dialog B">
+                              <img src="./img/shapegroup/dialogB.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" data-toggle="tooltip" onclick="State.drawingFigure=FIGURE.DIALOGC; drawSetting();" title="Dialog C">
+                              <img src="./img/shapegroup/dialogC.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" data-toggle="tooltip" onclick="State.drawingFigure=FIGURE.DIALOGD; drawSetting();" title="Dialog D">
+                              <img src="./img/shapegroup/dialogD.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.CAMEL; drawSetting();" data-toggle="tooltip" title="Camel">
+                              <img src="./img/shapegroup/camel.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.HEN; drawSetting();" data-toggle="tooltip" title="Hen">
+                              <img src="./img/shapegroup/hen.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.EAGLE; drawSetting();" data-toggle="tooltip" title="Eagle">
+                              <img src="./img/shapegroup/eagle.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.MOUSE; drawSetting();" data-toggle="tooltip" title="Mouse">
+                              <img src="./img/shapegroup/mouse.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.ELK; drawSetting();" data-toggle="tooltip" title="Elk">
+                              <img src="./img/shapegroup/elk.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.BAT; drawSetting();" data-toggle="tooltip" title="Bat">
+                              <img src="./img/shapegroup/bat.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.BULL; drawSetting();" data-toggle="tooltip" title="Bull">
+                              <img src="./img/shapegroup/bull.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.HARE; drawSetting();" data-toggle="tooltip" title="Rabbit">
+                              <img src="./img/shapegroup/hare.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.AIRPLANE; drawSetting();" data-toggle="tooltip" title="Airplane">
+                              <img src="./img/shapegroup/airplane.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.CAPACITOR; drawSetting()" data-toggle="tooltip" title="Capacitor">
+                              <img src="./img/shapegroup/capacitor.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.DIODE; drawSetting()" data-toggle="tooltip" title="Diode">
+                              <img src="./img/shapegroup/diode.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.GATE_AND; drawSetting()" data-toggle="tooltip" title="Gate_and">
+                              <img src="./img/shapegroup/gate_and.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.GATE_INVERTER; drawSetting()" data-toggle="tooltip" title="Gate_inventor">
+                              <img src="./img/shapegroup/gate_inventor.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.GATE_NOR; drawSetting()" data-toggle="tooltip" title="Gate_nor">
+                              <img src="./img/shapegroup/gate_nor.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.GATE_OR; drawSetting()" data-toggle="tooltip" title="Gate_or">
+                              <img src="./img/shapegroup/gate_or.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.GATE_XOR; drawSetting()" data-toggle="tooltip" title="Gate_xor">
+                              <img src="./img/shapegroup/gate_xor.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.GATE_AND; drawSetting()" data-toggle="tooltip" title="Gate_nand">
+                              <img src="./img/shapegroup/gate_nand.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.RESISTER; drawSetting()" data-toggle="tooltip" title="Register">
+                              <img src="./img/shapegroup/register.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.INDUCTOR; drawSetting()" data-toggle="tooltip" title="Inductor">
+                              <img src="./img/shapegroup/inductor.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.CLEF_ALTO; drawSetting();" data-toggle="tooltip" title="Clef_Alto">
+                              <img src="./img/shapegroup/clef_alto.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.CLEF_BASS; drawSetting();" data-toggle="tooltip" title="Clef_Bass">
+                              <img src="./img/shapegroup/clef_bass.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.CLEF_TREBLE; drawSetting();" data-toggle="tooltip" title="Clef_Treble">
+                              <img src="./img/shapegroup/clef_treble.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_2_8TH; drawSetting();" data-toggle="tooltip" title="Note_2_8th">
+                              <img src="./img/shapegroup/note_2_8th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_2_16TH; drawSetting();" data-toggle="tooltip" title="Note_2_16th">
+                              <img src="./img/shapegroup/note_2_16th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_2_32TH; drawSetting();" data-toggle="tooltip" title="Note_2_32th">
+                              <img src="./img/shapegroup/note_2_32th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_2_64TH; drawSetting();" data-toggle="tooltip" title="Note_2_64th">
+                              <img src="./img/shapegroup/note_2_64th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_3_8TH; drawSetting();" data-toggle="tooltip" title="Note_3_8th">
+                              <img src="./img/shapegroup/note_3_8th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_3_16TH; drawSetting();" data-toggle="tooltip" title="Note_3_16th">
+                              <img src="./img/shapegroup/note_3_16th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_3_32TH; drawSetting();" data-toggle="tooltip" title="Note_3_32th">
+                              <img src="./img/shapegroup/note_3_32th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_3_64TH; drawSetting();" data-toggle="tooltip" title="Note_3_64th">
+                              <img src="./img/shapegroup/note_3_64th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_4TH; drawSetting();" data-toggle="tooltip" title="Note_4th">
+                              <img src="./img/shapegroup/note_4th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_8TH; drawSetting();" data-toggle="tooltip" title="Note_8th">
+                              <img src="./img/shapegroup/note_8th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_16TH; drawSetting();" data-toggle="tooltip" title="Note_16th">
+                              <img src="./img/shapegroup/note_16th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_64TH; drawSetting();" data-toggle="tooltip" title="Note_64th">
+                              <img src="./img/shapegroup/note_64th.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_32TH; drawSetting();" data-toggle="tooltip" title="Note_32nd">
+                              <img src="./img/shapegroup/note_32nd.png" width="30" height="30">
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="State.drawingFigure=FIGURE.NOTE_HALF; drawSetting();" data-toggle="tooltip" title="Note_Half">
+                              <img src="./img/shapegroup/note_half.png" width="30" height="30">
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+            <button onclick="State.drawingFigure=FIGURE.TEXT; drawSetting();" type="button" class="btn btn-default" data-toggle="tooltip" title="Text box">
+              <i class="material-icons">insert_comment</i>
+            </button>
+          <br/>
+
+          <button type="button" class="btn btn-default" data-toggle="tooltip" title="Line" onclick="State.drawingFigure=FIGURE.LINE; drawSetting();">
+            <i class="material-icons">border_color</i>
+          </button>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Line weight">
+              <i class="material-icons">line_weight</i>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="#" style="border-bottom:1px solid black; border-top:1px solid black;">1 px</a>
+                <a href="#" style="border-bottom:1px solid black;">2 px</a>
+                <a href="#" style="border-bottom:1px solid black;">3 px</a>
+                <a href="#" style="border-bottom:1px solid black;">4 px</a>
+                <a href="#" style="border-bottom:1px solid black;">5 px</a>
+              </li>
+            </ul>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Background color">
+              <i class="material-icons">format_color_fill</i>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <input type="color" id="colors_figurebackground" name="favcolor" value="#ffffff" style="width:150px; height:100px;">
+                <center>Click!</center>
+              </li>
+            </ul>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Border color">
+              <i class="material-icons">brush</i>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <input type="color" id="colors_figureborder" name="favcolor" value="#000000" style="width:150px; height:100px;">
+                <center>Click!</center>
+              </li>
+            </ul>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Opacity">
+              <i class="material-icons">border_outer</i>
+            </button>
+            <ul class="dropdown-menu stoppage" role="menu">
+              <li>
+                <!-- <input type="color" name="favcolor" value="#ffffff" style="width:150px; height:100px;">
+                <center>Click!</center> -->
+                <input type="range"  min="0" max="100" id="opacity_set" class="opacitybar" />
+              </li>
+            </ul>
+          </div>
+          <div class="btngrouptitle">Shape</div>
+        </div>
+
+      <div class="btn-group">
+        <button onclick = "document.execCommand('bold');" type="button" class="btn btn-default" data-toggle="tooltip" data-placment="bottom" title="Bold" >
+          <i class="material-icons">format_bold</i>
+        </button>
+        <button onclick = "document.execCommand('italic');" type="button" class="btn btn-default" data-toggle="tooltip" title="Italic">
+          <i class="material-icons">format_italic</i>
+        </button>
+        <button onclick = "document.execCommand('Underline');" type="button" class="btn btn-default" data-toggle="tooltip" title="Underline">
+          <i class="material-icons">format_underlined</i>
+        </button>
+        <button  onclick = "document.execCommand('strikeThrough');" type="button" class="btn btn-default" data-toggle="tooltip" title="Strikethrough">
+          <i class="material-icons">format_strikethrough</i>
+        </button><br/>
+        <div class="btn-group">
+          <button id="size_up" type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Font size">
+            <i class="material-icons">format_size</i>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="#" style="border-bottom:1px solid black; border-top:1px solid black;">1 px</a>
+              <a href="#" style="border-bottom:1px solid black;">2 px</a>
+              <a href="#" style="border-bottom:1px solid black;">3 px</a>
+              <a href="#" style="border-bottom:1px solid black;">4 px</a>
+              <a href="#" style="border-bottom:1px solid black;">5 px</a>
+              <a href="#" style="border-bottom:1px solid black;">6 px</a>
+              <a href="#" style="border-bottom:1px solid black;">7 px</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="btn-group" onchange="console.log('hi')">
+          <button type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Font family">
+            <i class="material-icons">title</i>
+          </button>
+          <ul class="dropdown-menu stoppage" role="menu">
+            <li>
+              <input id="font" type="text">
+            </li>
+          </ul>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Font color">
+            <i class="material-icons">format_color_text</i>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <input id="colors_word" type="color" name="favcolor" value="#000000" style="width:150px; height:100px;">
+              <center>Click!</center>
+            </li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Fill color">
+            <i class="material-icons">format_paint</i>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <input id="colors_wordbackground" type="color" name="favcolor" value="#ffffff" style="width:150px; height:100px;">
+              <center>Click!</center>
+            </li>
+          </ul>
+        </div>
+        <div class="btngrouptitle">Text</div>
+      </div>
+
+      <div class="btn-group">
+        <button id="left" type="button" class="btn btn-default" data-toggle="tooltip" title="Align left">
+          <i class="material-icons">format_align_left</i>
+        </button>
+        <button id="center" type="button" class="btn btn-default" data-toggle="tooltip" title="Align center">
+          <i class="material-icons">format_align_center</i>
+        </button>
+        <button id="right" type="button" class="btn btn-default" data-toggle="tooltip" title="Align right">
+          <i class="material-icons">format_align_right</i>
+        </button>
+        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Align justify">
+          <i class="material-icons">format_align_justify</i>
+        </button>
+        <br/>
+        <button id="orderedList" type="button" class="btn btn-default" data-toggle="tooltip" title="Ordered list">
+          <i class="material-icons">format_list_numbered</i>
+        </button>
+        <button id="unOrderedList" type="button" class="btn btn-default" data-toggle="tooltip" title="Unordered list">
+          <i class="material-icons">format_list_bulleted</i>
+        </button>
+        <button onclick = "document.execCommand('subscript');" type="button" class="btn btn-default" data-toggle="tooltip" title="Subscript">
+          <i class="material-icons">trending_down</i>
+        </button>
+        <button onclick = "document.execCommand('superscript');" type="button" class="btn btn-default" data-toggle="tooltip" title="Superscript">
+          <i class="material-icons">trending_up</i>
+        </button>
+        <div class="btngrouptitle">Align</div>
+      </div>
+
+
+
+      <div class="btn-group">
+        <button type="button" id="createLink" class="btn btn-default" data-toggle="tooltip" title="Insert link">
+          <i class="material-icons">insert_link</i>
+        </button>
+        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Clear formatting">
+          <i class="material-icons">refresh</i>
+        </button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Fill color">
+            <i class="material-icons">format_paint</i>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <input id="colors_svgbackground" type="color" name="favcolor" value="#ffffff" style="width:150px; height:100px;">
+              <center>Click!</center>
+            </li>
+          </ul>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle my-dropdown" data-toggle="dropdown" title="Download Image">
+            <i class="material-icons">get_app</i>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#" onclick="exportBoard('png')">PNG</a></li>
+            <li><a href="#" onclick="exportBoard('jpg')">JPG</a></li>
+            <li><a href="#" onclick="exportBoard('bmp')">BMP</a></li>
+          </ul>
+        </div>
+        <br/>
+        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Undo" onclick="load_before_data()">
+          <i class="material-icons">undo</i>
+        </button>
+        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Redo" onclick="load_after_data()">
+          <i class="material-icons">redo</i>
+        </button>
+        <button type="button" onclick="zIndexButtonCilck('moveToFront');" class="btn btn-default" data-toggle="tooltip" title="Z index up" id="moveToFront">
+          <i pointer-events="none" class="material-icons">vertical_align_top</i>
+        </button>
+        <button onclick="zIndexButtonCilck('moveToBack');" class="btn btn-default" data-toggle="tooltip" title="Z index down" id="moveToBack">
+          <i pointer-events="none" class="material-icons">vertical_align_bottom</i>
+        </button>
+
+        <div class="btngrouptitle">ETC</div>
+      </div>
+      </center>
+    </div>
+
+
+    <!-- Start xy, etc -->
+    <!-- <div class="startpoint">
+      <div class="row">
+        <div class="col-2" style="box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+          <input type="text" class="form-control" placeholder="Start X Y  (ex : 10,30)">
+        </div>
+        <div class="col-2" style="box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+          <input type="text" class="form-control" placeholder="Angle (ex : 90)">
+        </div>
+      </div>
+    </div> -->
+
+    <!-- slideshow -->
+    <div class="slideshow">
+      <div class="windowtitle"><strong>Slide</strong></div>
+      <div class="btn-group" style="margin-left:10px; margin-top:10px; margin-bottom:10px;">
+        <button onclick = "full_screen(); " type="button" class="btn btn-default btn-sm" data-toggle="tooltip" title="Play">
+            <span class="glyphicon glyphicon-play-circle"></span> Play
+        </button>
+        <button type="button" id="btn_add_slide" class="btn btn-default btn-sm" onclick="onclick_add_slide()" data-toggle="tooltip" title="Add">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+        <button type="button" id="btn_remove_slide" class="btn btn-default btn-sm" onclick="onclick_remove_slide()" data-toggle="tooltip" title="Delete">
+            <span class="glyphicon glyphicon-minus"></span>-
+        </button>
+      </div>
+      <!-- slideitem -->
+      <div id="slide_container">
+        <svg class="slideimage" id="id_sub0" width="170" height="90" >
+          <g id="id_sub0_g" transform = "scale(0.2)"></g>
+          <rect id="id_sub0_rect" x="0" y="0" width="100%" height="100%" onclick="onclick_sub_svg()" fill="transparent"></rect>
+        </svg>
+        <svg id="id_sub_hidden" width="170" height="90" onclick="onclick_sub_svg()" style="background-color:white; display:none;">
+        </svg>
+      </div>
+    </div>
+
+    <!-- animationlist -->
+    <div class="animationlist">
+      <div class="windowtitle"><strong>List</strong></div>
+      <div class="groupbtnlist">
+        <ul class="nav nav-tabs titlebtn">
+          <li class="active titlebtnItem"><a data-toggle="tab" href="#home" title="Template"><i class="material-icons">dashboard</i></a></li>
+          <li class="titlebtnItem"><a data-toggle="tab" href="#menu1" title="Smart art"><i class="material-icons">filter_frames</i></a></li>
+          <li class="titlebtnItem"><a data-toggle="tab" href="#menu2" title="Background image"><i class="material-icons">collections</i></a></li>
+          <li class="titlebtnItem"><a data-toggle="tab" href="#menu3" title="Layouts"><i class="material-icons">select_all</i></a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="home" class="tab-pane fade in active" >
+            <div class="btn-group">
+              <center>
+              <button type="button" id="figure_template1" class="btn btn-default" data-toggle="tooltip" title="Template1" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template1.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template2" class="btn btn-default" data-toggle="tooltip" title="Template2" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template2.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template3" class="btn btn-default" data-toggle="tooltip" title="Template3" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template3.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template4" class="btn btn-default" data-toggle="tooltip" title="Template4" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template4.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template5" class="btn btn-default" data-toggle="tooltip" title="Template5" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template5.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template6" class="btn btn-default" data-toggle="tooltip" title="Template6" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template6.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template7" class="btn btn-default" data-toggle="tooltip" title="Template7" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template7.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template8" class="btn btn-default" data-toggle="tooltip" title="Template8" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template8.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template9" class="btn btn-default" data-toggle="tooltip" title="Template9" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template9.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template10" class="btn btn-default" data-toggle="tooltip" title="Template10" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template10.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template11" class="btn btn-default" data-toggle="tooltip" title="Template11" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template11.png" width="45" height="45">
+              </button>
+              <button type="button" id="figure_template12" class="btn btn-default" data-toggle="tooltip" title="Template12" onclick="onclick_figure_template();">
+                <img src="./img/colortemplate/template12.png" width="45" height="45">
+              </button>
+              </center>
+            </div>
+          </div>
+          <div id="menu1" class="tab-pane fade" >
+            <div class="btn-group">
+              <center>
+              <button type="button" id="smartArt1" class="btn btn-default" data-toggle="tooltip" title="SmartArt1">
+                <img src="./img/smartart/smart1.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt2" class="btn btn-default" data-toggle="tooltip" title="SmartArt2">
+                <img src="./img/smartart/smart2.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt3" class="btn btn-default" data-toggle="tooltip" title="SmartArt3">
+                <img src="./img/smartart/smart3.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt4" class="btn btn-default" data-toggle="tooltip" title="SmartArt4">
+                <img src="./img/smartart/smart4.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt5" class="btn btn-default" data-toggle="tooltip" title="SmartArt5">
+                <img src="./img/smartart/smart5.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt6" class="btn btn-default" data-toggle="tooltip" title="SmartArt6">
+                <img src="./img/smartart/smart6.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt7" class="btn btn-default" data-toggle="tooltip" title="SmartArt7">
+                <img src="./img/smartart/smart7.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt8" class="btn btn-default" data-toggle="tooltip" title="SmartArt8">
+                <img src="./img/smartart/smart8.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt9" class="btn btn-default" data-toggle="tooltip" title="SmartArt9">
+                <img src="./img/smartart/smart9.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt10" class="btn btn-default" data-toggle="tooltip" title="SmartArt10">
+                <img src="./img/smartart/smart10.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt11" class="btn btn-default" data-toggle="tooltip" title="SmartArt11">
+                <img src="./img/smartart/smart11.png" width="45" height="45">
+              </button>
+              <button type="button" id="smartArt12" class="btn btn-default" data-toggle="tooltip" title="SmartArt12">
+                <img src="./img/smartart/smart12.png" width="45" height="45">
+              </button>
+              </center>
+            </div>
+          </div>
+          <div id="menu2" class="tab-pane fade" style="overflow:scroll; height:370px;">
+            <div class="btn-group">
+              <center>
+              <button type="button" id="image_background1" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 1">
+                <img src="./img/backgroundImg/bgimg1.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background2" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 2">
+                <img src="./img/backgroundImg/bgimg2.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background3" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 3">
+                <img src="./img/backgroundImg/bgimg3.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background4" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 4">
+                <img src="./img/backgroundImg/bgimg4.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background5" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 5">
+                <img src="./img/backgroundImg/bgimg5.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background6" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 6">
+                <img src="./img/backgroundImg/bgimg6.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background7" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 7">
+                <img src="./img/backgroundImg/bgimg7.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background8" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 8">
+                <img src="./img/backgroundImg/bgimg8.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background9" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 9">
+                <img src="./img/backgroundImg/bgimg9.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background10" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 10">
+                <img src="./img/backgroundImg/bgimg10.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background11" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 11">
+                <img src="./img/backgroundImg/bgimg11.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background12" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 12">
+                <img src="./img/backgroundImg/bgimg12.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background13" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 13">
+                <img src="./img/backgroundImg/bgimg13.png" class="backImg">
+              </button>
+              <button type="button" id="image_background14" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 14">
+                <img src="./img/backgroundImg/bgimg14.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background15" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 15">
+                <img src="./img/backgroundImg/bgimg15.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background16" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 16">
+                <img src="./img/backgroundImg/bgimg16.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background17" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 17">
+                <img src="./img/backgroundImg/bgimg17.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background18" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 18">
+                <img src="./img/backgroundImg/bgimg18.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background19" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 19">
+                <img src="./img/backgroundImg/bgimg19.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background20" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 20">
+                <img src="./img/backgroundImg/bgimg20.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background21" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 21">
+                <img src="./img/backgroundImg/bgimg21.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background22" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 22">
+                <img src="./img/backgroundImg/bgimg22.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background23" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 23">
+                <img src="./img/backgroundImg/bgimg23.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background24" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 24">
+                <img src="./img/backgroundImg/bgimg24.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background25" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 25">
+                <img src="./img/backgroundImg/bgimg25.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background26" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 26">
+                <img src="./img/backgroundImg/bgimg26.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background27" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 27">
+                <img src="./img/backgroundImg/bgimg27.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background28" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 28">
+                <img src="./img/backgroundImg/bgimg28.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background29" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 29">
+                <img src="./img/backgroundImg/bgimg29.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background30" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 30">
+                <img src="./img/backgroundImg/bgimg30.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background31" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 31">
+                <img src="./img/backgroundImg/bgimg31.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background32" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 32">
+                <img src="./img/backgroundImg/bgimg32.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background33" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 33">
+                <img src="./img/backgroundImg/bgimg33.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background34" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 34">
+                <img src="./img/backgroundImg/bgimg34.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background35" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 35">
+                <img src="./img/backgroundImg/bgimg35.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background36" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 36">
+                <img src="./img/backgroundImg/bgimg36.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background37" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 37">
+                <img src="./img/backgroundImg/bgimg37.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background38" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 38">
+                <img src="./img/backgroundImg/bgimg38.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background39" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 39">
+                <img src="./img/backgroundImg/bgimg39.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background40" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 40">
+                <img src="./img/backgroundImg/bgimg40.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background41" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 41">
+                <img src="./img/backgroundImg/bgimg41.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background42" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 42">
+                <img src="./img/backgroundImg/bgimg42.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background43" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 43">
+                <img src="./img/backgroundImg/bgimg43.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background44" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 44">
+                <img src="./img/backgroundImg/bgimg44.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background45" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 45">
+                <img src="./img/backgroundImg/bgimg45.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background46" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 46">
+                <img src="./img/backgroundImg/bgimg46.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background47" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 47">
+                <img src="./img/backgroundImg/bgimg47.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background48" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 48">
+                <img src="./img/backgroundImg/bgimg48.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background49" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 49">
+                <img src="./img/backgroundImg/bgimg49.jpg" class="backImg">
+              </button>
+              <button type="button" id="image_background50" onclick="onclick_change_img()"  class="btn btn-default" data-toggle="tooltip" title="JPG 50">
+                <img src="./img/backgroundImg/bgimg50.jpg" class="backImg">
+              </button>
+              </center>
+            </div>
+          </div>
+          <div id="menu3" class="tab-pane fade" >
+            <center>
+            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Base Layout" onclick="base_layout();">
+              <img src="./img/layout/layout1.png" class="backImg">
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Title Layout" onclick="title_content_layout();">
+              <img src="./img/layout/layout2.png" class="backImg">
+            </button>
+            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Compare Layout" onclick="compare_layout();">
+              <img src="./img/layout/layout3.png" class="backImg">
+            </button>
+            </center>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- Board -->
+    <center>
+      <div id="workarea">
+        <svg id="board" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+        </svg>
+      </div>
+    </center>
+
+    <!-- Save -->
+    <div id="saveModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Save</h4>
+          </div>
+          <div class="modal-body">
+            <input class="saveFile" id="saveFile" style="width:98%;" type="text">
+          </div>
+          <div class="modal-footer" >
+            <button type="button" onclick="save_btn_click()" class="btn btn-default" data-dismiss="modal" >Save</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="login_please" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">로그인을 해주세요</h4>
+          </div>
+          <div class="modal-footer" >
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Load -->
+  <div id="loadModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Load</h4>
+          </div>
+          <div class="modal-body">
+            <div class="loadlist">
+              <table id="list_table" class="table table-bordered">
+               <thead>
+                 <tr>
+                   <th width="400px">파일명</th>
+                   <th>날짜</th>
+                   <!-- <th>크기</th> -->
+                 </tr>
+               </thead>
+               <tbody>
+
+
+               </tbody>
+             </table>
+            </div>
+            <input class="loadFile" disabled="" id="loadFile" value="" style="width:98%;">
+          </div>
+          <div class="modal-footer">
+              <button type="button" onclick="load_btn_click()" class="btn btn-default" data-dismiss="modal">Load</button>
+            <button type="button" class="btn btn-default" onclick="delete_btn_click()">Delete</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fontselect.js"></script>
+    <script src="js/custom.js"></script>
+
+    <!-- 기능 javascript -->
+    <script src="javascript/GlobalValues.js"></script>
+    <script src="javascript/Main_UI.js"></script>
+    <script src="javascript/GetPath.js"></script>
+    <script src="javascript/DrawFigure.js"></script>
+    <script src="javascript/Draw_event.js"></script>
+    <script src="javascript/Text.js"></script>
+    <script src="javascript/Range_drag.js"></script>
+    <script src="javascript/Math.js"></script>
+    <script src="javascript/Board_event.js"></script>
+    <script src="javascript/push_back_front.js"></script>
+    <script src="javascript/Slide_show.js"></script>
+    <script src="javascript/Mouse_Down_Events.js"></script>
+    <script src="javascript/Make_Group.js"></script>
+    <script src="javascript/slide.js"></script>
+    <script src="javascript/Figure_Move_event.js"></script>
+    <script src="javascript\Image.js"></script>
+    <script src="javascript\wordArt.js"></script>
+    <script src="javascript\Group_move_drag.js"></script>
+    <script src="javascript\Stack.js"></script>
+    <script src="javascript\Layout.js"></script>
+
+    <!-- 서버 javascript -->
+    <script src="javascript/server_function.js"></script>
+    <script src="javascript/saveSvgAsPng.js"></script>
+
+    <script src="https://rawgithub.com/niklasvh/html2canvas/master/dist/html2canvas.min.js"></script>
+  </body>
+</html>

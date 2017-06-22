@@ -1,0 +1,290 @@
+
+/*--Rulers--*/
+#rulers > div {
+	position: absolute;
+	background: #DDD;
+	z-index: 1;
+	overflow: hidden;
+	background-color:#000000;
+}
+
+#ruler_corner {
+	top: 63px;
+	left: 82px;
+	width: 15px;
+	height: 15px;
+
+}
+
+#ruler_x {
+	height: 15px;
+	top: 63px;
+	left: 97px;
+	right: 30px;
+  width:950px;
+	border-bottom: 1px solid;
+	border-left: 1px solid #777;
+}
+
+#ruler_y {
+	width: 16px;
+	top: 77px;
+	left: 82px;
+	bottom: 35px;
+	border-right: 1px solid;
+	border-top: 1px solid #777;
+}
+
+#ruler_x canvas:first-child {
+	/*margin-left: -16px;*/
+}
+
+#ruler_x canvas {
+  width:950px;
+  background-color:#000000;
+  background-image:
+   linear-gradient(90deg,
+     rgba(255, 255, 255, 0.5) 0,
+     rgba(255, 255, 255, 0.5) 2%,
+     transparent 2%
+   ),
+   linear-gradient(180deg,
+     #000000 50%,
+     transparent 50%
+   ),
+   linear-gradient(90deg,
+     transparent 50%,
+     rgba(255, 255, 255, 0.5) 50%,
+     rgba(255, 255, 255, 0.5) 52%,
+     transparent 52%
+   ),
+   linear-gradient(180deg,
+     #000000 70%,
+     transparent 70%
+   ),
+   linear-gradient(90deg,
+     transparent 10%,
+     rgba(255, 255, 255, 0.4) 10%,
+     rgba(255, 255, 255, 0.4) 12%,
+     transparent 12%,
+
+     transparent 20%,
+     rgba(255, 255, 255, 0.4) 20%,
+     rgba(255, 255, 255, 0.4) 22%,
+     transparent 22%,
+
+     transparent 30%,
+     rgba(255, 255, 255, 0.4) 30%,
+     rgba(255, 255, 255, 0.4) 32%,
+     transparent 32%,
+
+     transparent 40%,
+     rgba(255, 255, 255, 0.4) 40%,
+     rgba(255, 255, 255, 0.4) 42%,
+     transparent 42%,
+
+     transparent 60%,
+     rgba(255, 255, 255, 0.4) 60%,
+     rgba(255, 255, 255, 0.4) 62%,
+     transparent 62%,
+
+     transparent 70%,
+     rgba(255, 255, 255, 0.4) 70%,
+     rgba(255, 255, 255, 0.4) 72%,
+     transparent 72%,
+
+     transparent 80%,
+     rgba(255, 255, 255, 0.4) 80%,
+     rgba(255, 255, 255, 0.4) 82%,
+     transparent 82%,
+
+     transparent 90%,
+     rgba(255, 255, 255, 0.4) 90%,
+     rgba(255, 255, 255, 0.4) 92%,
+     transparent 92%
+   );
+   background-size: 50px 15px;
+   background-repeat: repeat-x;
+   min-height: 15px;
+
+ /* only needed for labels */
+   white-space:nowrap;
+   font-size:0;
+   margin:0;
+   padding:0;
+   float:left;
+}
+
+#ruler_y canvas {
+	/*margin-top: -16px;*/
+  height:500px;
+  background-color:#000000;
+  background-image:
+   linear-gradient(0deg,
+     rgba(255,255, 255, 0.5) 0,
+     rgba(255, 255, 255, 0.5) 2%,
+     transparent 2%
+   ),
+   linear-gradient(90deg,
+     #000000 50%,
+     transparent 50%
+   ),
+   linear-gradient(0deg,
+     transparent 50%,
+     rgba(255, 255, 255, 0.5) 50%,
+     rgba(255, 255, 255, 0.5) 52%,
+     transparent 52%
+   ),
+   linear-gradient(90deg,
+     #000000 70%,
+     transparent 70%
+   ),
+   linear-gradient(0deg,
+     transparent 10%,
+     rgba(255, 255, 255, 0.4) 10%,
+     rgba(255, 255, 255, 0.4) 12%,
+     transparent 12%,
+
+     transparent 20%,
+     rgba(255, 255, 255, 0.4) 20%,
+     rgba(255, 255, 255, 0.4) 22%,
+     transparent 22%,
+
+     transparent 30%,
+     rgba(255, 255, 255, 0.4) 30%,
+     rgba(255, 255, 255, 0.4) 32%,
+     transparent 32%,
+
+     transparent 40%,
+     rgba(255, 255, 255, 0.4) 40%,
+     rgba(255, 255, 255, 0.4) 42%,
+     transparent 42%,
+
+     transparent 60%,
+     rgba(255, 255, 255, 0.4) 60%,
+     rgba(255, 255, 255, 0.4) 62%,
+     transparent 62%,
+
+     transparent 70%,
+     rgba(255, 255, 255, 0.4) 70%,
+     rgba(255, 255, 255, 0.4) 72%,
+     transparent 72%,
+
+     transparent 80%,
+     rgba(255, 255, 255, 0.4) 80%,
+     rgba(255, 255, 255, 0.4) 82%,
+     transparent 82%,
+
+     transparent 90%,
+     rgba(255, 255, 255, 0.4) 90%,
+     rgba(255, 255, 255, 0.4) 92%,
+     transparent 92%
+   );
+   background-size: 15px 50px;
+   background-repeat: repeat-y;
+   min-width: 15px;
+
+ /* only needed for labels */
+   white-space:nowrap;
+   font-size:0;
+   margin:0;
+   padding:0;
+}
+
+#ruler_x > div,
+#ruler_y > div {
+	overflow: hidden;
+}
+
+
+#tools_left {
+	position: absolute;
+	border-right: none;
+	width: 32px;
+
+	top: 63px;
+	left: 7px;
+	margin-top: -2px;
+	padding-left: 2px;
+	background: #18BC9C; /* Needed so flyout icons don't appear on the left */
+	z-index: 4;
+}
+
+#tools_left2{
+	position: absolute;
+	border-right: none;
+	width: 32px;
+	top: 63px;
+	left: 38px;
+	margin-top: -2px;
+	padding-left: 2px;
+	background: #18BC9C; /* Needed so flyout icons don't appear on the left */
+	z-index: 4;
+}
+
+#tools_left .tool_button,
+#tools_left .tool_button_current {
+	position: relative;
+	z-index: 11;
+}
+
+#tools_left2 .tool_button,
+#tools_left2 .tool_button_current {
+	position: relative;
+	z-index: 11;
+}
+
+.tool_button{
+	padding: 2px;
+	width: 24px;
+	height: 24px;
+	margin: 0;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+}
+.tool_button:hover
+{
+	background-color: #A9E2F3 !important;
+}
+.tool_button:focus{
+	background-color: #A9E2F3;
+	box-shadow: 0 1px #666;
+	transform: translateY(2px);
+}
+.tool_button:active{
+  background-color: #A9E2F3;
+  box-shadow: 0 1px #666;
+  transform: translateY(2px);
+}
+
+.tool_button,
+.push_button,
+.tool_button_current,
+.push_button_pressed
+{
+	float:left;
+	height: 20px;
+	width: 20px;
+	margin: 2px 2px 4px 2px;
+	padding: 3px;
+	-webkit-box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0,0,0,0.3);
+	moz-box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0,0,0,0.3);
+	box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0,0,0,0.3);
+	background-color: #E8E8E8;
+  cursor:pointer;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+/*.tool_button {
+	float: left;
+	background-color: #E8E8E8;
+	border-left: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
+	border-right: 1px solid #808080;
+	border-bottom: 1px solid #808080;
+	height: 24px;
+	width: 24px;
+}*/

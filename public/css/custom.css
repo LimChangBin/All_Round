@@ -1,0 +1,413 @@
+
+/*--투명도--*/
+.opacitybar{
+  /*position:absolute;
+  top:335px;
+  left:11px;*/
+  width:100%;
+}
+
+/*--채우기색--*/
+.jscolor{
+  position:absolute;
+  top: 390px;
+	left: 11px;
+  width:55px;
+  height:30px;
+}
+
+/*--테두리색--*/
+.bordercolor{
+  position:absolute;
+  top: 455px;
+	left: 11px;
+  width:55px;
+  height:30px;
+}
+
+/*--선두께--*/
+.thickness{
+  position:absolute;
+  top:520px;
+  left:11px;
+  width:55px;
+  height:30px;
+}d
+
+/*-----------------------------*/
+
+.toolbarMenu{
+  width:100%;
+  margin-top:-20px;
+  background-color:#D8D8D8;
+}
+
+.titleMenu{
+  width:100%;
+  background-color:#2E2E2E;
+  color:white;
+}
+
+.slideshow{
+  position:absolute;
+  margin-top:10px;
+  left:10px;
+  border:3px solid #848484;
+  background-color:#E0F8F1;
+  width:16%;
+  height:450px;
+  max-height: 450px;
+  overflow: scroll;
+  box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.slideitem{
+  display:inline-block;
+  margin-top:10px;
+  margin-left:10px;
+  width:130px;
+  height:61.5px;
+  background-color:#ffffff;
+  border:1px solid #088A68;
+  box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.animationlist{
+  position:absolute;
+  margin-top:10px;
+  right:10px;
+  border:3px solid #848484;
+  background-color:#E0F8F1;
+  width:16%;
+  height:450px;
+  max-height: 450px;
+  box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.animationitem{
+  display:inline-block;
+  width:100%;
+  height:380px;
+  overflow:scroll;
+  background-color:#ffffff;
+  border:1px solid #088A68;
+  box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.groupbtnlist{
+  width:100%;
+  height:100%;
+}
+
+.titlebtn{
+  width:100%;
+}
+
+.titlebtnItem{
+  width:25%;
+}
+
+.windowtitle{
+  border:1px solid #848484;
+  background-color:#D8D8D8;
+  text-align:center;
+  width:100%;
+}
+
+.btngrouptitle{
+  /*background-color:#000000;
+  background-position:bottom;*/
+  color:white;
+  width:100%;
+  background-image: linear-gradient(bottom, black, black 5%, transparent 35%, transparent 10%);
+    background-image: -webkit-linear-gradient(bottom, black, black 5%, transparent 35%, transparent 10%);
+}
+
+
+.slideimage{
+  border : none;
+  border:1px solid black;
+  background-color:white;
+  margin-left:10px;
+}
+
+.slideimage:hover{
+  border:5px solid black;
+}
+
+/*.slideimage:hover {
+  color: white;
+  border-color: #A72424;
+  background-image:
+  linear-gradient(to top, #000000 51%, transparent 50%);
+  background-position: 0 100%;
+  -webkit-transition: background-position 300ms, color 300ms ease, border-color 300ms ease;
+  -moz-transition: background-position 300ms, color 300ms ease, border-color 300ms ease;
+  -ms-transition: background-position 300ms, color 300ms ease, border-color 300ms ease;
+  -o-transition: background-position 300ms, color 300ms ease, border-color 300ms ease;
+  transition: background-position 300ms, color 300ms ease, border-color 300ms ease;
+}
+
+a {
+  color: black; text-decoration: none;
+  transition: all 100ms linear;
+  -webkit-transition: all 100ms linear;
+  -moz-transition: all 100ms linear;
+  -ms-transition: all 100ms linear;
+  -o-transition: all 100ms linear;
+}
+
+a:hover {
+  color: white;
+  transition: all 100ms linear;
+  -webkit-transition: all 100ms linear;
+  -moz-transition: all 100ms linear;
+  -ms-transition: all 100ms linear;
+  -o-transition: all 100ms linear;
+}
+
+a:active {color: white;}*/
+
+.startpoint{
+  position:absolute;
+  left:50px;
+  top:70px;
+}
+
+.loadlist{
+  width:98%;
+  height:300px;
+  border:1px solid #6E6E6E;
+  overflow:scroll;
+  margin-bottom:10px;
+  /*box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+}
+
+.flipImage{
+  -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
+.groupList{
+  width:100%;
+  height:250px;
+  overflow:scroll;
+}
+
+.backImg{
+  width:100px;
+  height:100px;
+}
+
+#workarea {
+	display: inline-table-cell;
+	margin:10px auto;
+	width:850px;
+  height:450px;
+	background-color: #18BC9C;
+  box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	overflow: auto;
+	text-align: center;
+}
+
+#board{
+  background-color: #FFFFFF;
+  line-height: normal;
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+
+  width:100%;
+  height:100%;
+}
+
+/*------이 아래론 아직 안쓰지만 지우지말것  로그인창, 사이드바 등등----------------------------*/
+/* Bordered form */
+.loginform {
+    border: 3px solid #f1f1f1;
+}
+
+/* Full-width inputs */
+/*input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}*/
+.id-pw{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+.loginbutton{
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* Center the avatar image inside this container */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+/* Avatar image */
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+/* Add padding to containers */
+.formcontainer {
+    padding: 16px;
+}
+
+/* The "Forgot password" text */
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+}
+/*----------------------------------------*/
+.loginmodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 0px;
+}
+
+/* Modal Content/Box */
+.loginmodal-content {
+    background-color: #fefefe;
+    margin: 5px auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.closeform {
+    /* Position it in the top right corner outside of the modal */
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+/* Close button on hover */
+.closeform:hover,
+.closeform:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    opacity: 0.9;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+    background-color:#18BC9C;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
